@@ -1,0 +1,15 @@
+{
+  "name": "learn-nosql",
+  "version": "1.0.0",
+  "description": "Learn NoSql",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "author": "Sakti Dewantoro",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^1.18.10"
+  }
+}
