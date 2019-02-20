@@ -1,41 +1,20 @@
 require('dotenv').config()
-const MongoClient = require('mongodb').MongoClient
+const mongoose = require('mongoose')
 
-// Connection URL
-const url = process.env.URL
-
-// Database Name
-const dbName = process.env.DB_NAME
-
-const createNewUser = function(db) {
-  const newUser = {
-    name: 'Sakti Dewantoro',
-    age: 23,
-    email: 'saktyd@gmail.com'
-  }
-
-  db.collection('users').insert(newUser, (err, result) => {
-    if (err) {
-      console.log({
-        message: 'Failed to create new user'
-      })
-    } else {
-      console.log({
-        message: 'Create new user',
-        result: result
-      })
-    }
-  })
-}
-
-// Use connect method to connect to the server
-MongoClient.connect(url, function(err, client) {
-  console.log('Connected successfully to server')
-
-  const db = client.db(dbName)
-
-  // insertDocument
-  createNewUser(db)
-
-  client.close()
+mongoose.connect(`${process.env.URL}/${process.env.DB_NAME}`, {
+  useNewUrlParser: true
 })
+
+const User = mongoose.model('User', {
+  name: String,
+  age: Number,
+  email: String
+})
+
+const sakti = new User({
+  name: 'Sakti',
+  age: 23,
+  email: 'saktyd@gmail.com'
+})
+
+sakti.save().then(() => console.log('Created new user'))
