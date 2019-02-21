@@ -61,6 +61,27 @@ app.delete('/users', async (req, res) => {
   })
 })
 
+app.delete(`/users/:id`, (req, res) => {
+  const id = Number(req.params.id)
+
+  const newUsers = Users.map(user => {
+    if (user.id === id) {
+      user.name = newName
+      return user
+    } else {
+      return user
+    }
+  })
+
+  users = newUsers
+
+  res.send({
+    message: 'One user has been updated',
+    id: id,
+    newName: newName
+  })
+})
+
 app.listen(port, () => {
   console.log(`Express app is running on localhost:${port}`)
 })
