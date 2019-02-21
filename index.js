@@ -61,12 +61,11 @@ app.delete('/users', async (req, res) => {
   })
 })
 
-app.delete(`/users/:id`, (req, res) => {
+app.delete(`/users/:id`, async (req, res) => {
   const id = Number(req.params.id)
 
-  const newUsers = Users.map(user => {
+  const newUsers = Users.filter(user => {
     if (user.id === id) {
-      user.name = newName
       return user
     } else {
       return user
@@ -76,9 +75,8 @@ app.delete(`/users/:id`, (req, res) => {
   users = newUsers
 
   res.send({
-    message: 'One user has been updated',
-    id: id,
-    newName: newName
+    message: 'One user has been deleted',
+    Users: await Users.deleteOne(newUsers)
   })
 })
 
